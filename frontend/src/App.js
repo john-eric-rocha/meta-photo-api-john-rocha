@@ -18,15 +18,20 @@ const App = () => {
 
     const fetchPhotos = async () => {
         try {
-            const response = await axios.get(`https://meta-photo-api-john-rocha.onrender.com/externalapi/photos`, {
+            // Ensure limit and offset are valid numbers with fallback defaults
+            const validLimit = limit && !isNaN(limit) && Number(limit) > 0 ? Number(limit) : 25;
+            const validOffset = offset && !isNaN(offset) && Number(offset) >= 0 ? Number(offset) : 0;
+    
+            const response = await axios.get('https://meta-photo-api-john-rocha.onrender.com/externalapi/photos', {
                 params: {
-                    title,
-                    'album.title': albumTitle,
-                    'album.user.email': userEmail,
-                    limit,
-                    offset
+                    title: title || '',
+                    'album.title': albumTitle || '',
+                    'album.user.email': userEmail || '',
+                    limit: validLimit,
+                    offset: validOffset
                 }
             });
+    
             console.log('API Response:', response.data);
             setPhotos(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
@@ -59,8 +64,18 @@ const App = () => {
                 <input
                     type="number"
                     placeholder="Limit"
-                    value={limit}
-                    onChange={(e) => setLimit(Number(e.target.value))}
+                    value={limit === '' ? '' : limit} // Handle empty input safely
+                    min="1"
+                    max="100"
+                    step="1"
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        if (value === '') {
+                            setLimit(''); // Allow empty input
+                        } else if (!isNaN(value) && Number(value) > 0) {
+                            setLimit(Number(value)); // Set only positive numbers
+                        }
+                    }}
                 />
                 <input
                     type="number"
