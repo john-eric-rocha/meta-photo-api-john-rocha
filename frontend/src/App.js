@@ -18,7 +18,7 @@ const App = () => {
 
     const fetchPhotos = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/externalapi/photos`, {
+            const response = await axios.get(`https://meta-photo-api-john-rocha.onrender.com/externalapi/photos`, {
                 params: {
                     title,
                     'album.title': albumTitle,
