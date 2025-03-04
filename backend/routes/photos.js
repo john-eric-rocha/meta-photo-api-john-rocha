@@ -1,3 +1,4 @@
+// Updated photos.js with safe data handling and API response checks
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
@@ -17,9 +18,9 @@ router.get('/', async (req, res) => {
             axios.get(API_PHOTOS)
         ]);
 
-        let users = usersRes.data;
-        let albums = albumsRes.data;
-        let photos = photosRes.data;
+        let users = Array.isArray(usersRes.data) ? usersRes.data : [];
+        let albums = Array.isArray(albumsRes.data) ? albumsRes.data : [];
+        let photos = Array.isArray(photosRes.data) ? photosRes.data : [];
 
         // Filtering
         const { title, 'album.title': albumTitle, 'album.user.email': userEmail, limit = 25, offset = 0 } = req.query;
@@ -61,9 +62,9 @@ router.get('/', async (req, res) => {
         const endIndex = startIndex + parseInt(limit, 10) || 25;
         const paginatedPhotos = enrichedPhotos.slice(startIndex, endIndex);
 
-        res.json(paginatedPhotos);
+        res.json(Array.isArray(paginatedPhotos) ? paginatedPhotos : []);
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching data:', error.message);
         res.status(500).json({ message: 'Error fetching data' });
     }
 });

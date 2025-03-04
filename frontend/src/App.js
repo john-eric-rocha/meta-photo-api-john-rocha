@@ -1,3 +1,5 @@
+
+// Updated App.js with safe array handling and correct API URL
 import React, { useEffect, useState } from 'react';
 import PhotoList from './components/PhotoList';
 import axios from 'axios';
@@ -16,7 +18,7 @@ const App = () => {
 
     const fetchPhotos = async () => {
         try {
-            const response = await axios.get('${process.env.REACT_APP_API_URL}/externalapi/photos', {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/externalapi/photos`, {
                 params: {
                     title,
                     'album.title': albumTitle,
@@ -25,9 +27,10 @@ const App = () => {
                     offset
                 }
             });
-            setPhotos(response.data);
+            console.log('API Response:', response.data);
+            setPhotos(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
-            console.error('Error fetching photos', error);
+            console.error('Error fetching photos', error.message);
         }
     };
 
@@ -72,4 +75,3 @@ const App = () => {
 };
 
 export default App;
-
