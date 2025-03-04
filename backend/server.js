@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 // Enable CORS for all origins (for testing purposes)
 app.use(cors({
-    origin: 'https://meta-photo-api-john-rocha.onrender.com/',
+    origin: 'https://meta-photo-api-john-rocha.onrender.com',
     methods: 'GET,POST',
     allowedHeaders: 'Content-Type,Authorization'
 }));
