@@ -62,7 +62,7 @@ router.get('/', async (req, res) => {
         const endIndex = startIndex + parseInt(limit, 10) || 25;
         const paginatedPhotos = enrichedPhotos.slice(startIndex, endIndex);
 
-        res.json(Array.isArray(paginatedPhotos) ? paginatedPhotos : []);
+        res.json(photos);
     } catch (error) {
         console.error('Error fetching data:', error.message);
         res.status(500).json({ message: 'Error fetching data' });
