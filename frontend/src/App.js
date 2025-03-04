@@ -18,7 +18,6 @@ const App = () => {
 
     const fetchPhotos = async () => {
         try {
-            // Ensure limit and offset are valid numbers with fallback defaults
             const validLimit = limit && !isNaN(limit) && Number(limit) > 0 ? Number(limit) : 25;
             const validOffset = offset && !isNaN(offset) && Number(offset) >= 0 ? Number(offset) : 0;
     
@@ -32,7 +31,8 @@ const App = () => {
                 }
             });
     
-            console.log('API Response:', response.data);
+            console.log('API Response Data:', response.data); // Log the data
+            console.log('Limit:', validLimit, 'Offset:', validOffset); // Log the parameters
             setPhotos(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error('Error fetching photos', error.message);

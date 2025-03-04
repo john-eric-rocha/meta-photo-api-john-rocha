@@ -60,9 +60,12 @@ router.get('/', async (req, res) => {
         // Pagination
         const startIndex = parseInt(offset, 10) || 0;
         const endIndex = startIndex + parseInt(limit, 10) || 25;
-        const paginatedPhotos = enrichedPhotos.slice(startIndex, endIndex);
 
-        res.json(photos);
+        // Safely apply pagination
+        const paginatedPhotos = Array.isArray(enrichedPhotos) ? enrichedPhotos.slice(startIndex, endIndex) : [];
+
+        console.log('Paginated Photos:', paginatedPhotos.length); // Log the number of items
+        res.json(paginatedPhotos);
     } catch (error) {
         console.error('Error fetching data:', error.message);
         res.status(500).json({ message: 'Error fetching data' });
