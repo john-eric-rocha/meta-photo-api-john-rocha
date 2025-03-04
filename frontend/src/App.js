@@ -16,7 +16,7 @@ const App = () => {
 
     const fetchPhotos = async () => {
         try {
-            const response = await axios.get('/externalapi/photos', {
+            const response = await axios.get('${process.env.REACT_APP_API_URL}/externalapi/photos', {
                 params: {
                     title,
                     'album.title': albumTitle,
