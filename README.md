@@ -6,19 +6,20 @@ Backend: Node.js/Express API
 Deployment: Render.com with CI/CD pipeline
 - Project Structure
 .
-├── backend             # Node.js/Express backend
-│   ├── routes          # API routes
-│   ├── server.js       # Main server file
-│   ├── photos.js       # Photo API with pagination and filtering
-│   └── package.json    # Backend dependencies
-│
-├── frontend            # React frontend
-│   ├── src             # React source code
-│   ├── public          # Static files
-│   ├── App.js          # Main app component
-│   └── package.json    # Frontend dependencies
-│
-└── README.md           # Project documentation
+backend: Contains the Node.js/Express backend code.
+
+routes: Directory for API routes.
+server.js: The main server file.
+photos.js: Handles the Photo API with pagination and filtering.
+package.json: Lists backend dependencies.
+frontend: Holds the React frontend code.
+
+src: Directory for React source code.
+public: Contains static files.
+App.js: The main app component.
+package.json: Lists frontend dependencies.
+README.md: Provides project documentation.
+
 - Deployment Commands
 - Build Command
 npm install
