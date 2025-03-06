@@ -24,7 +24,6 @@ README.md: Provides project documentation.
 - Build Command
 npm install
 - Pre-Deploy Command
-# Not required, but optionally can run tests or linting
 - Start Command
 npm run start
 
